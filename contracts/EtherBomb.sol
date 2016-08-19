@@ -1,9 +1,6 @@
 
 contract EtherBomb {
 
-  //mapping (uint =>
-	//		mapping (address => bool)) proposals;
-
   bool forkActivated = false;
   uint blocksForVoteCounting = 50000;
   uint blocksBeforeForkDeployed = 200000;
@@ -13,7 +10,7 @@ contract EtherBomb {
   uint heightToForkAt;
 
   struct forkProposal {
-		mapping (address => bool) votes;
+    mapping (address => bool) votes;
     mapping (address => bool) alreadyCounted;
     mapping (bool => uint) voteCounts;
     bytes32 hashOfProposalBlock;
@@ -23,8 +20,7 @@ contract EtherBomb {
 
   mapping (uint => forkProposal) proposals;
 
-
-	function voteToFork(uint _forkHeight) {
+  function voteToFork(uint _forkHeight) {
     if (block.number < _forkHeight){
       proposals[_forkHeight].votes[msg.sender] = true;
     }
