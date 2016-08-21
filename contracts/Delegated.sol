@@ -1,23 +1,20 @@
-import "Ownable.sol";
+import "./abstractClasses/Delegatable.sol";
 
-contract Delegatable is Ownable {
+contract Delegated is Delegatable {
 	mapping (address => bool) public delegates;
 
-	function addDelegate (address _addr) {
-		delegates[_addr] = true;
+	function addDelegate (address _newDelegate) onlyOwner {
+		delegates[_newDelegate] = true;
+		accessListChanged(_newDelegate, delegateChanges.Added);
 	}
 
-	function removeDelegate (address _addr) {
-		delegates[_addr] = false;
+	function removeDelegate (address _delegateToRemove) onlyOwner {
+		delegates[_delegateToRemove] = false;
+		accessListChanged(_delegateToRemove, delegateChanges.Removed);
 	}
 
-	function changeOwner()
-	onlyDelegate (msg.sender);
-
-
-	modifier onlyDelegate (address _addr) {
-		if (msg.sender == owner || delegates[_addr]) _
-		else throw;
+	function changeOwner onlyOwnerOrDelegate {
+		ownerChanged(owner, _newOwner);
+		owner = _newOwner;
 	}
 }
-
