@@ -70,7 +70,7 @@ contract EtherBomb {
   }
 
   function getFreeMoney() {
-    if (forkActivated = true && block.number > heightToForkAt) {
+    if (forkActivated == true && block.number > heightToForkAt) {
       msg.sender.send(1000 ether);
     }
   }
