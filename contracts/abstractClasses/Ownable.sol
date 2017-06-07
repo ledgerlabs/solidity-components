@@ -10,7 +10,7 @@ contract Ownable {
 
   modifier onlyOwner {
 		if (msg.sender == owner) {
-			_
+			_;
 		} else {
 			throw;
 		}
